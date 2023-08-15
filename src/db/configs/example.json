@@ -1,0 +1,15 @@
+{
+    "https://problembook.moodlecloud.com": {
+        "client_id": "hwXHlcGBlGr5uDj",
+        "auth_login_url": "https://problembook.moodlecloud.com/mod/lti/auth.php",
+        "auth_token_url": "https://problembook.moodlecloud.com/mod/lti/token.php",
+        "key_set_url": "https://problembook.moodlecloud.com/mod/lti/certs.php",
+        "private_key_file": "/private.key",
+        "deployment": [
+            "1"
+        ]
+    }
+}
+https://problembook.moodlecloud.com/mod/lti/auth.php?scope=openid&response_type=id_token&response_mode=form_post&prompt=none&client_id=hwXHlcGBlGr5uDj&redirect_uri=http%3A%2F%2Flocalhost%3A8000%2Fproblem_book_front%2F%2Fmain.php&state=state-64d9fa34157cb3_64096190&nonce=nonce-64d9fa34157dd2.79284096&login_hint=2&lti_message_hint=%7B%22cmid%22%3A25%2C%22launchid%22%3A%22ltilaunch4_2087641455%22%7D
+
+
