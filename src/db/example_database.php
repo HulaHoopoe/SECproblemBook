@@ -17,12 +17,13 @@ class Example_Database implements LTI\Database {
     public function __construct()
     {
 
-        $this->dbconn = mysqli_connect('localhost', 'root', 'root', 'lti_problembook') or
+        $this->dbconn = mysqli_connect('localhost', 'sosbrodovu', 'MQ!34ZKSv1cH65CH', 'sosbrodovu') or
         die("Could not connect : " . mysqli_error($this->dbconn));
     }
 
     public function find_registration_by_issuer($iss) {
-        $result = mysqli_query($this->dbconn, "SELECT * FROM lti_registration WHERE issuer = '$iss' LIMIT 1");
+
+        $result = mysqli_query($this->dbconn, "SELECT * FROM lti_registration WHERE issuer = '" .$iss. "' LIMIT 1");
 
         if (!$result){
             return false;
@@ -34,7 +35,7 @@ class Example_Database implements LTI\Database {
             return false;
         }
 
-        $key_result = mysqli_query($this->dbconn, "SELECT * FROM lti_key WHERE key_set_id = '{$registration['key_set_id']}' LIMIT 1");
+        $key_result = mysqli_query($this->dbconn, "SELECT * FROM lti_key WHERE key_set_id = '" .$registration['key_set_id']. "' LIMIT 1");
 
         if (!$key_result) {
             return false;
@@ -60,7 +61,7 @@ class Example_Database implements LTI\Database {
     }
 
     public function find_deployment($iss, $deployment_id) {
-        $result = mysqli_query($this->dbconn, "SELECT d.deployment_id FROM lti_deployment d JOIN lti_registration r ON (d.registration_id = r.id) WHERE r.issuer = '$iss' AND d.deployment_id = '$deployment_id' LIMIT 1");
+        $result = mysqli_query($this->dbconn, "SELECT d.deployment_id FROM lti_deployment d JOIN lti_registration r ON (d.registration_id = r.id) WHERE r.issuer = '" . $iss . "' AND d.deployment_id = '".$deployment_id."' LIMIT 1");
 
         if (!$result) {
             return false;
@@ -77,7 +78,7 @@ class Example_Database implements LTI\Database {
     }
 
     public function get_keys_is_set($key_set_id){
-        $key_result = mysqli_query($this->dbconn, "SELECT * FROM lti_key WHERE key_set_id = '$key_set_id'");
+        $key_result = mysqli_query($this->dbconn, "SELECT * FROM lti_key WHERE key_set_id = '" . $key_set_id . "'");
 
         if (!$key_result) {
             return [];
