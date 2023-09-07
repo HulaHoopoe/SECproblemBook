@@ -7,5 +7,5 @@ use \IMSGlobal\LTI;
 //echo '<script>console.log("test2"); </script>';
 //echo "<script>console.log('{$registration['key_set_id']}'); </script>";
 LTI\LTI_OIDC_Login::new(new Example_Database())
-    ->do_oidc_login_redirect("http://localhost:8000/problem_book_front//main.php")
+    ->do_oidc_login_redirect(TOOL_HOST . "/main.php")
     ->do_redirect();
