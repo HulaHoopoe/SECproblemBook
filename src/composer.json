@@ -6,8 +6,8 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^7.2",
         "imsglobal/lti-1p3-tool": "dev-master",
-      "ext-mysqli": "*"
+        "ext-mysqli": "*"
     }
 }

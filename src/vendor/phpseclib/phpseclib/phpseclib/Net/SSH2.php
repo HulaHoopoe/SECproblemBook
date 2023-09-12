@@ -4061,7 +4061,7 @@ class SSH2
                         if ($client_channel == $channel && $this->channel_status[$channel] == NET_SSH2_MSG_CHANNEL_DATA) {
                             return $data;
                         }
-                        $this->channel_buffers[$channel][] = SSH2 . phpchr($type) . $data;
+                        $this->channel_buffers[$channel][] = chr($type) . $data;
 
                         continue 2;
                     case NET_SSH2_MSG_CHANNEL_REQUEST:
@@ -4163,7 +4163,7 @@ class SSH2
                                 }
                                 extract(unpack('Nlength', $this->_string_shift($response, 4)));
                                 $data = $this->_string_shift($response, $length);
-                                $this->channel_buffers[$channel][] = SSH2 . phpchr($type) . $data;
+                                $this->channel_buffers[$channel][] = chr($type) . $data;
                                 return $this->_get_channel_packet($client_channel, $skip_extended);
                             default:
                                 user_error('Unable to fulfill channel request');
@@ -4204,7 +4204,7 @@ class SSH2
                     if ($client_channel == $channel) {
                         return $data;
                     }
-                    $this->channel_buffers[$channel][] = SSH2 . phpchr($type) . $data;
+                    $this->channel_buffers[$channel][] = chr($type) . $data;
                     break;
                 case NET_SSH2_MSG_CHANNEL_CLOSE:
                     $this->curTimeout = 5;
@@ -4583,7 +4583,7 @@ class SSH2
                 // http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
                 // also replace < with a . since < messes up the output on web browsers
                 $raw = preg_replace('#[^\x20-\x7E]|<#', '.', $fragment);
-                $output.= SSH2 . phpstr_pad($hex, $this->log_long_width - $this->log_short_width, ' ') . $raw . "\r\n";
+                $output.= str_pad($hex, $this->log_long_width - $this->log_short_width, ' ') . $raw . "\r\n";
                 $j++;
             } while (strlen($current_log));
             $output.= "\r\n";
@@ -5114,7 +5114,7 @@ class SSH2
                 $msg = count($diff) == 1 ?
                     ' is not a supported algorithm' :
                     ' are not supported algorithms';
-                user_error(SSH2 . phpimplode(', ', $diff) . $msg);
+                user_error(implode(', ', $diff) . $msg);
                 return false;
             }
         }
@@ -5330,7 +5330,7 @@ class SSH2
                         $hash = 'sha1';
                         $h = pack('N4a*', 0x00302130, 0x0906052B, 0x0E03021A, 0x05000414, $hashObj->hash($this->exchange_hash));
                 }
-                $h = SSH2 . phpchr(0x01) . str_repeat(chr(0xFF), $nLength - 2 - strlen($h)) . $h;
+                $h = chr(0x01) . str_repeat(chr(0xFF), $nLength - 2 - strlen($h)) . $h;
 
                 if ($s != $h) {
                     user_error('Bad server signature');

@@ -1127,14 +1127,14 @@ class ASN1
 
         if (isset($mapping['cast'])) {
             if (isset($mapping['explicit']) || $mapping['type'] == self::TYPE_CHOICE) {
-                $value = ASN1 . phpchr($tag) . $this->_encodeLength(strlen($value)) . $value;
+                $value = chr($tag) . $this->_encodeLength(strlen($value)) . $value;
                 $tag = ($mapping['class'] << 6) | 0x20 | $mapping['cast'];
             } else {
                 $tag = ($mapping['class'] << 6) | (ord($temp[0]) & 0x20) | $mapping['cast'];
             }
         }
 
-        return ASN1 . phpchr($tag) . $this->_encodeLength(strlen($value)) . $value;
+        return chr($tag) . $this->_encodeLength(strlen($value)) . $value;
     }
 
     /**

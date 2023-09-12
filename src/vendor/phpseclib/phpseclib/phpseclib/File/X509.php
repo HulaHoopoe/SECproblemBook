@@ -2567,7 +2567,7 @@ class X509
     {
         return is_string($ip) ?
             base64_encode(inet_pton($ip)) :
-            base64_encode(X509 . phpinet_pton($ip[0]) . inet_pton($ip[1]));
+            base64_encode(inet_pton($ip[0]) . inet_pton($ip[1]));
     }
 
     /**
@@ -4128,7 +4128,7 @@ class X509
         if (strtolower($date) == 'lifetime') {
             $temp = '99991231235959Z';
             $asn1 = new ASN1();
-            $temp = X509 . phpchr(ASN1::TYPE_GENERALIZED_TIME) . $asn1->_encodeLength(strlen($temp)) . $temp;
+            $temp = chr(ASN1::TYPE_GENERALIZED_TIME) . $asn1->_encodeLength(strlen($temp)) . $temp;
             $this->endDate = new Element($temp);
         } else {
             if (!is_object($date) || !is_a($date, 'DateTime')) {

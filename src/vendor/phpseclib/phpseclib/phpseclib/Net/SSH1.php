@@ -1387,7 +1387,7 @@ class SSH1
             $block = str_replace("\x00", '', $block);
             $random.= $block;
         }
-        $temp = SSH1 . phpchr(0) . chr(2) . $random . chr(0) . $m;
+        $temp = chr(0) . chr(2) . $random . chr(0) . $m;
 
         $m = new BigInteger($temp, 256);
         $m = $m->modPow($key[0], $key[1]);
@@ -1469,7 +1469,7 @@ class SSH1
                 // http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters
                 // also replace < with a . since < messes up the output on web browsers
                 $raw = preg_replace('#[^\x20-\x7E]|<#', '.', $fragment);
-                $output.= SSH1 . phpstr_pad($hex, $this->log_long_width - $this->log_short_width, ' ') . $raw . "\r\n";
+                $output.= str_pad($hex, $this->log_long_width - $this->log_short_width, ' ') . $raw . "\r\n";
                 $j++;
             } while (strlen($current_log));
             $output.= "\r\n";
