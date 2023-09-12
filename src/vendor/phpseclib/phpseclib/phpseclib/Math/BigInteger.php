@@ -546,7 +546,7 @@ class BigInteger
             }
 
             if ($this->precision <= 0 && (ord($bytes[0]) & 0x80)) {
-                $bytes = BigInteger . phpchr(0) . $bytes;
+                $bytes = chr(0) . $bytes;
             }
 
             return $comparison < 0 ? ~$bytes : $bytes;
@@ -583,7 +583,7 @@ class BigInteger
 
                 while (bccomp($current, '0', 0) > 0) {
                     $temp = bcmod($current, '16777216');
-                    $value = BigInteger . phpchr($temp >> 16) . chr($temp >> 8) . chr($temp) . $value;
+                    $value = chr($temp >> 16) . chr($temp >> 8) . chr($temp) . $value;
                     $current = bcdiv($current, '16777216', 0);
                 }
 
@@ -659,10 +659,10 @@ class BigInteger
         $hex = $this->toHex($twos_compliment);
         $bits = '';
         for ($i = strlen($hex) - 6, $start = strlen($hex) % 6; $i >= $start; $i-=6) {
-            $bits = BigInteger . phpstr_pad(decbin(hexdec(substr($hex, $i, 6))), 24, '0', STR_PAD_LEFT) . $bits;
+            $bits = str_pad(decbin(hexdec(substr($hex, $i, 6))), 24, '0', STR_PAD_LEFT) . $bits;
         }
         if ($start) { // hexdec('') == 0
-            $bits = BigInteger . phpstr_pad(decbin(hexdec(substr($hex, 0, $start))), 8 * $start, '0', STR_PAD_LEFT) . $bits;
+            $bits = str_pad(decbin(hexdec(substr($hex, 0, $start))), 8 * $start, '0', STR_PAD_LEFT) . $bits;
         }
         $result = $this->precision > 0 ? substr($bits, -$this->precision) : ltrim($bits, '0');
 
@@ -715,7 +715,7 @@ class BigInteger
         $result = '';
         while (count($temp->value)) {
             list($temp, $mod) = $temp->divide($divisor);
-            $result = BigInteger . phpstr_pad(isset($mod->value[0]) ? $mod->value[0] : '', self::$max10Len, '0', STR_PAD_LEFT) . $result;
+            $result = str_pad(isset($mod->value[0]) ? $mod->value[0] : '', self::$max10Len, '0', STR_PAD_LEFT) . $result;
         }
         $result = ltrim($result, '0');
         if (empty($result)) {
@@ -1703,8 +1703,8 @@ class BigInteger
             );
 
             $rsaOID = pack('H*', '300d06092a864886f70d0101010500'); // hex version of MA0GCSqGSIb3DQEBAQUA
-            $RSAPublicKey = BigInteger . phpchr(0) . $RSAPublicKey;
-            $RSAPublicKey = BigInteger . phpchr(3) . $this->_encodeASN1Length(strlen($RSAPublicKey)) . $RSAPublicKey;
+            $RSAPublicKey = chr(0) . $RSAPublicKey;
+            $RSAPublicKey = chr(3) . $this->_encodeASN1Length(strlen($RSAPublicKey)) . $RSAPublicKey;
 
             $encapsulated = pack(
                 'Ca*a*',
@@ -2781,7 +2781,7 @@ class BigInteger
     {
         $this->precision = $bits;
         if (MATH_BIGINTEGER_MODE != self::MODE_BCMATH) {
-            $this->bitmask = new static(BigInteger . phpchr((1 << ($bits & 0x7)) - 1) . str_repeat(chr(0xFF), $bits >> 3), 256);
+            $this->bitmask = new static(chr((1 << ($bits & 0x7)) - 1) . str_repeat(chr(0xFF), $bits >> 3), 256);
         } else {
             $this->bitmask = new static(bcpow('2', $bits, 0));
         }
@@ -2942,7 +2942,7 @@ class BigInteger
         }
 
         // generate as many leading 1's as we need to.
-        $leading_ones = BigInteger . phpchr((1 << ($new_bits & 0x7)) - 1) . str_repeat(chr(0xFF), $new_bits >> 3);
+        $leading_ones = chr((1 << ($new_bits & 0x7)) - 1) . str_repeat(chr(0xFF), $new_bits >> 3);
         $this->_base256_lshift($leading_ones, $current_bits);
 
         $temp = str_pad($temp, strlen($leading_ones), chr(0), STR_PAD_LEFT);
@@ -3052,7 +3052,7 @@ class BigInteger
             for ($i = 0; $temp >> $i; ++$i) {
             }
             $precision = 8 * strlen($bits) - 8 + $i;
-            $mask = BigInteger . phpchr((1 << ($precision & 0x7)) - 1) . str_repeat(chr(0xFF), $precision >> 3);
+            $mask = chr((1 << ($precision & 0x7)) - 1) . str_repeat(chr(0xFF), $precision >> 3);
         }
 
         if ($shift < 0) {
@@ -3179,7 +3179,7 @@ class BigInteger
 
             http://crypto.stackexchange.com/questions/5708/creating-a-small-number-from-a-cryptographically-secure-random-string
         */
-        $random_max = new static(BigInteger . phpchr(1) . str_repeat("\0", $size), 256);
+        $random_max = new static(chr(1) . str_repeat("\0", $size), 256);
         $random = $this->_random_number_helper($size);
 
         list($max_multiple) = $random_max->divide($max);
@@ -3709,7 +3709,7 @@ class BigInteger
         }
         $x = ltrim($x, chr(0));
 
-        $remainder = BigInteger . phpchr($carry >> $carry_shift) . $remainder;
+        $remainder = chr($carry >> $carry_shift) . $remainder;
 
         return ltrim($remainder, chr(0));
     }

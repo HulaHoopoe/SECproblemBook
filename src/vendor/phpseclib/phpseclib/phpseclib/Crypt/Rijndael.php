@@ -787,7 +787,7 @@ class Rijndael extends Base
         // Generation of a uniqe hash for our generated code
         $code_hash = "Crypt_Rijndael, {$this->mode}, {$this->Nr}, {$this->Nb}";
         if ($gen_hi_opt_code) {
-            $code_hash = Rijndael . phpstr_pad($code_hash, 32) . $this->_hashInlineCryptFunction($this->key);
+            $code_hash = str_pad($code_hash, 32) . $this->_hashInlineCryptFunction($this->key);
         }
 
         if (!isset($lambda_functions[$code_hash])) {

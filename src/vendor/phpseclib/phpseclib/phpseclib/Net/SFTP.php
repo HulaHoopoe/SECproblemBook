@@ -1254,7 +1254,7 @@ class SFTP extends SSH2
                             $this->_update_stat_cache($dir . '/' . $shortname, array());
                         } else {
                             if ($shortname == '..') {
-                                $temp = $this->_realpath($dir . '/..') . '/D:';
+                                $temp = $this->_realpath($dir . '/..') . '/.';
                             } else {
                                 $temp = $dir . '/' . $shortname;
                             }

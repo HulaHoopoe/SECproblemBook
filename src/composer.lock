@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "00c8821378a783d088f8cafbb85cae77",
+    "content-hash": "caa73ff9a54e2d9c333b341f8b6bfb30",
     "packages": [
         {
             "name": "fproject/php-jwt",
@@ -217,7 +217,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.1",
+        "php": "^7.2",
         "ext-mysqli": "*"
     },
     "platform-dev": [],

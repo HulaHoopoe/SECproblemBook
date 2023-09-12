@@ -574,7 +574,7 @@ class RC2 extends Base
         // Generation of a unique hash for our generated code
         $code_hash = "Crypt_RC2, {$this->mode}";
         if ($gen_hi_opt_code) {
-            $code_hash = RC2 . phpstr_pad($code_hash, 32) . $this->_hashInlineCryptFunction($this->key);
+            $code_hash = str_pad($code_hash, 32) . $this->_hashInlineCryptFunction($this->key);
         }
 
         // Is there a re-usable $lambda_functions in there?

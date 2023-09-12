@@ -118,8 +118,8 @@ class JWK
 
         // sequence(oid(1.2.840.113549.1.1.1), null)) = rsaEncryption.
         $rsaOID = pack('H*', '300d06092a864886f70d0101010500'); // hex version of MA0GCSqGSIb3DQEBAQUA
-        $RSAPublicKey = JWK . phpchr(0) . $RSAPublicKey;
-        $RSAPublicKey = JWK . phpchr(3) . self::encodeLength(strlen($RSAPublicKey)) . $RSAPublicKey;
+        $RSAPublicKey = chr(0) . $RSAPublicKey;
+        $RSAPublicKey = chr(3) . self::encodeLength(strlen($RSAPublicKey)) . $RSAPublicKey;
 
         $RSAPublicKey = pack(
             'Ca*a*',

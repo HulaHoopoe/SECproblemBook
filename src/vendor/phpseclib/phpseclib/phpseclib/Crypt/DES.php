@@ -1316,7 +1316,7 @@ class DES extends Base
             // After max 10 hi-optimized functions, we create generic
             // (still very fast.. but not ultra) functions for each $mode/$des_rounds
             // Currently 2 * 5 generic functions will be then max. possible.
-            $code_hash = DES . phpstr_pad($code_hash, 32) . $this->_hashInlineCryptFunction($this->key);
+            $code_hash = str_pad($code_hash, 32) . $this->_hashInlineCryptFunction($this->key);
         }
 
         // Is there a re-usable $lambda_functions in there? If not, we have to create it.

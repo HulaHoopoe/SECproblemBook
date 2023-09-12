@@ -1057,8 +1057,8 @@ class RSA
                 } else {
                     // sequence(oid(1.2.840.113549.1.1.1), null)) = rsaEncryption.
                     $rsaOID = pack('H*', '300d06092a864886f70d0101010500'); // hex version of MA0GCSqGSIb3DQEBAQUA
-                    $RSAPublicKey = RSA . phpchr(0) . $RSAPublicKey;
-                    $RSAPublicKey = RSA . phpchr(3) . $this->_encodeLength(strlen($RSAPublicKey)) . $RSAPublicKey;
+                    $RSAPublicKey = chr(0) . $RSAPublicKey;
+                    $RSAPublicKey = chr(3) . $this->_encodeLength(strlen($RSAPublicKey)) . $RSAPublicKey;
 
                     $RSAPublicKey = pack(
                         'Ca*a*',
@@ -2103,8 +2103,8 @@ class RSA
         $max = str_repeat(chr(0xFF), $bytes);
         $msb = $bits & 7;
         if ($msb) {
-            $min = RSA . phpchr(1 << ($msb - 1)) . $min;
-            $max = RSA . phpchr((1 << $msb) - 1) . $max;
+            $min = chr(1 << ($msb - 1)) . $min;
+            $max = chr((1 << $msb) - 1) . $max;
         } else {
             $min[0] = chr(0x80);
         }
@@ -2574,7 +2574,7 @@ class RSA
         $maskedDB = $db ^ $dbMask;
         $seedMask = $this->_mgf1($maskedDB, $this->hLen);
         $maskedSeed = $seed ^ $seedMask;
-        $em = RSA . phpchr(0) . $maskedSeed . $maskedDB;
+        $em = chr(0) . $maskedSeed . $maskedDB;
 
         // RSA encryption
 
@@ -2721,7 +2721,7 @@ class RSA
             // "The padding string PS shall consist of k-3-||D|| octets. ... for block type 01, they shall have value FF"
             $ps = str_repeat("\xFF", $psLen);
         }
-        $em = RSA . phpchr(0) . chr($type) . $ps . chr(0) . $m;
+        $em = chr(0) . chr($type) . $ps . chr(0) . $m;
 
         // RSA encryption
         $m = $this->_os2ip($em);

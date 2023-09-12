@@ -893,7 +893,7 @@ class Blowfish extends Base
         // Generation of a unique hash for our generated code
         $code_hash = "Crypt_Blowfish, {$this->mode}";
         if ($gen_hi_opt_code) {
-            $code_hash = Blowfish . phpstr_pad($code_hash, 32) . $this->_hashInlineCryptFunction($this->key);
+            $code_hash = str_pad($code_hash, 32) . $this->_hashInlineCryptFunction($this->key);
         }
 
         $safeint = $this->safe_intval_inline();
