@@ -7,6 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'phpseclib\\' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
-    'IMSGlobal\\LTI\\' => array($vendorDir . '/imsglobal/lti-1p3-tool/src/lti'),
     'Firebase\\JWT\\' => array($vendorDir . '/fproject/php-jwt/src'),
 );

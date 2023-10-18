@@ -15,10 +15,6 @@ class ComposerStaticInitabd9ff857a50d097437a4ef80a683ebb
         array (
             'phpseclib\\' => 10,
         ),
-        'I' => 
-        array (
-            'IMSGlobal\\LTI\\' => 14,
-        ),
         'F' => 
         array (
             'Firebase\\JWT\\' => 13,
@@ -29,10 +25,6 @@ class ComposerStaticInitabd9ff857a50d097437a4ef80a683ebb
         'phpseclib\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib',
-        ),
-        'IMSGlobal\\LTI\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/imsglobal/lti-1p3-tool/src/lti',
         ),
         'Firebase\\JWT\\' => 
         array (

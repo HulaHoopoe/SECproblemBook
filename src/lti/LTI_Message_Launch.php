@@ -1,6 +1,8 @@
 <?php
 namespace IMSGlobal\LTI;
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 use Firebase\JWT\JWK;
 use Firebase\JWT\JWT;
 
@@ -240,7 +242,7 @@ class LTI_Message_Launch {
         // Check State for OIDC.
         if ($this->cookie->get_cookie('lti1p3_' . $this->request['state']) !== $this->request['state']) {
             // Error if state doesn't match
-            //throw new LTI_Exception("State not found", 1);
+            throw new LTI_Exception("State not found", 1);
         }
         return $this;
     }
@@ -315,7 +317,7 @@ class LTI_Message_Launch {
 
         if (empty($deployment)) {
             // deployment not recognized.
-           // throw new LTI_Exception("Unable to find deployment", 1);
+            throw new LTI_Exception("Unable to find deployment", 1);
         }
 
         return $this;

@@ -7,8 +7,8 @@ class LTI_Lineitem {
     private $label;
     private $resource_id;
     private $tag;
-    private $start_date_time;
-    private $end_date_time;
+    // private $start_date_time;
+    // private $end_date_time;
 
     public function __construct(array $lineitem = null) {
         if (empty($lineitem)) {
@@ -19,8 +19,8 @@ class LTI_Lineitem {
         $this->label = $lineitem["label"];
         $this->resource_id = $lineitem["resourceId"];
         $this->tag = $lineitem["tag"];
-        $this->start_date_time = $lineitem["startDateTime"];
-        $this->end_date_time = $lineitem["endDateTime"];
+        // $this->start_date_time = $lineitem["startDateTime"];
+        // $this->end_date_time = $lineitem["endDateTime"];
     }
 
     /**
@@ -75,23 +75,23 @@ class LTI_Lineitem {
         return $this;
     }
 
-    public function get_start_date_time() {
-        return $this->start_date_time;
-    }
+    // public function get_start_date_time() {
+    //     return $this->start_date_time;
+    // }
 
-    public function set_start_date_time($value) {
-        $this->start_date_time = $value;
-        return $this;
-    }
+    // public function set_start_date_time($value) {
+    //     $this->start_date_time = $value;
+    //     return $this;
+    // }
 
-    public function get_end_date_time() {
-        return $this->end_date_time;
-    }
+    // public function get_end_date_time() {
+    //     return $this->end_date_time;
+    // }
 
-    public function set_end_date_time($value) {
-        $this->end_date_time = $value;
-        return $this;
-    }
+    // public function set_end_date_time($value) {
+    //     $this->end_date_time = $value;
+    //     return $this;
+    // }
 
     public function __toString() {
         return json_encode(array_filter([
@@ -100,8 +100,8 @@ class LTI_Lineitem {
             "label" => $this->label,
             "resourceId" => $this->resource_id,
             "tag" => $this->tag,
-            "startDateTime" => $this->start_date_time,
-            "endDateTime" => $this->end_date_time,
+            // "startDateTime" => $this->start_date_time,
+            // "endDateTime" => $this->end_date_time,
         ]));
     }
 }

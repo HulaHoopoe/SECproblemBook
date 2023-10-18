@@ -12,7 +12,7 @@ draggbles.forEach((draggble) => {
         draggble.classList.remove("dragging")
     })
 })
-//shit
+
 containers.forEach((container) => {
     container.addEventListener("dragover", function (e) {
         e.preventDefault()
@@ -41,4 +41,15 @@ function dragAfterElement(container, y) {
         },
         { offset: Number.NEGATIVE_INFINITY }
     ).element
+}
+
+var getScoreBoard = function(){
+
+}
+
+var submitScore = function() {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "api/score.php", false)
+    xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+    xhttp.send("launch_id=" + launch_id + "&score=" + '10');
 }

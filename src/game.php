@@ -1,16 +1,10 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/lti/lti.php';
 require_once __DIR__ . '/db/example_database.php';
 
 use \IMSGlobal\LTI;
 
 $launch = LTI\LTI_Message_Launch::new(new Example_Database())->validate();
-
-// $data = $launch->get_launch_data();
-
-// foreach ($data as &$value) {
-//     print_r($value);
-// }
 
 ?>
 <!DOCTYPE html>
@@ -20,16 +14,28 @@ $launch = LTI\LTI_Message_Launch::new(new Example_Database())->validate();
     <title>Кейс 1</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <script type="text/javascript" src="jquery.js"></script>
-    <script type="text/javascript" src="main_alt.js" defer></script>
+    
 </head>
+<?php
+if ($launch->is_deep_link_launch()) {
+    ?>
+    <div class="dl-config">
+        <h1>Pick a Difficulty</h1>
+        <ul>
+            <li><a href="<?= TOOL_HOST ?>/configure.php?diff=easy&launch_id=<?= $launch->get_launch_id(); ?>">Case 1</a></li>
+            <li><a href="<?= TOOL_HOST ?>/configure.php?diff=normal&launch_id=<?= $launch->get_launch_id(); ?>">Case 2</a></li>
+            <li><a href="<?= TOOL_HOST ?>/configure.php?diff=hard&launch_id=<?= $launch->get_launch_id(); ?>">Case 3</a></li>
+        </ul>
+    </div>
+    <?php
+    die;
+}
+?>
 <body>
 <div class="INFO">
     <div style="width: 100%"><? echo $launch->get_launch_data()['name']; ?>
         <br>
         <? echo $launch->get_launch_data()['email']; ?>
-    </div>
-    <div style="width: 100%">
-        Ваша текущая оценка в Moodle:<span id="moodleScore">%score%</span>
     </div>
 </div>
 <h4>
@@ -64,10 +70,16 @@ $launch = LTI\LTI_Message_Launch::new(new Example_Database())->validate();
     </div>
 
 </div>
-<input type="button" value="Подтвердить" id="BTNOK"><br/><br/>
-Оценка: <input type="text" readonly size="4" value="0" id="score">
-<input type="button" value="Save" id="BTNSAVE">
+<input type="button" value="Перейти к следующему этапу" id="BTNOK" class='btn' 
+onclick="location.href='/second_task.php';"><br/><br/>
+<input type="button" value="Save" id="BTNSAVE" onclick='submitScore()'>
 <br/><br/>
 <div id="ERRMSG"></div>
+<script>
+    var curr_user_name = "<?= $launch->get_launch_data()['name']; ?>";
+    var launch_id = "<?= $launch->get_launch_id(); ?>";
+</script>
+<script type="text/javascript" src="main_alt.js"></script>
 </body>
+
 </html>

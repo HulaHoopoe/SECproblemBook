@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . ('/../lti/lti.php');
 //print_r($_SERVER);
-define("TOOL_HOST", ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?: $_SERVER['REQUEST_SCHEME']) . '://' . $_SERVER['HTTP_HOST']);
+// define("TOOL_HOST", ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?: $_SERVER['REQUEST_SCHEME']) . '://' . $_SERVER['HTTP_HOST']);
 session_start();
 use \IMSGlobal\LTI;
 
@@ -77,7 +77,7 @@ class Example_Database implements LTI\Database {
             ->set_deployment_id($deployment['deployment_id']);
     }
 
-    public function get_keys_is_set($key_set_id){
+    public function get_keys_in_set($key_set_id){
         $key_result = mysqli_query($this->dbconn, "SELECT * FROM lti_key WHERE key_set_id = '" . $key_set_id . "'");
 
         if (!$key_result) {
